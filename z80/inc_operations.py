@@ -1,5 +1,5 @@
-from baseop import BaseOp
-from funcs import bitwise_add, bitwise_sub, to_signed
+from z80.baseop import BaseOp
+from z80.funcs import bitwise_add, bitwise_sub, to_signed
 from memory.memory import fetch_signed_byte
 
 

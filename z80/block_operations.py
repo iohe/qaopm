@@ -1,4 +1,4 @@
-from baseop import BaseOp
+from z80.baseop import BaseOp
 from z80.funcs import bitwise_sub
 
 

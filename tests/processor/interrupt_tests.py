@@ -1,7 +1,7 @@
 from unittest import SkipTest
 
 from nose.tools import assert_equals, assert_false, assert_true
-from processor_tests import TestHelper
+from tests.processor.processor_tests import TestHelper
 from z80.processor import InterruptRequest
 
 

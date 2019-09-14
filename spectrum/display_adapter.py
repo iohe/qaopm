@@ -18,7 +18,7 @@ class DisplayAdapter:
         papers = self.papers
         display_memory = self.memory[0x4000:0x5b00]
 
-        for y in xrange(0, 192):
+        for y in range(0, 192):
             hi = y & 0b00111000
             lo = y & 0b00000111
             line = (hi >> 3) | (lo << 3)
@@ -30,10 +30,10 @@ class DisplayAdapter:
             else:
                 address_base = 0x1000
 
-            for x in xrange(0, 32):
-                colour_address = 0x1800 + (0x20 * (y / 8)) + x
+            for x in range(0, 32):
+                colour_address = 0x1800 + (0x20 * (y // 8)) + x
 
-                for bit in xrange(0, 8):
+                for bit in range(0, 8):
                     pixel_address = address_base + (line * 32) + x
                     colour_value = display_memory[colour_address]
                     display_x = (x * 8) + (7 - bit)

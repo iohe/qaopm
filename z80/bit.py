@@ -1,4 +1,4 @@
-from baseop import BaseOp
+from z80.baseop import BaseOp
 from memory.memory import fetch_signed_byte
 from z80.funcs import to_signed
 

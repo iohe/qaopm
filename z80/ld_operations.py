@@ -1,4 +1,4 @@
-from baseop import BaseOp
+from z80.baseop import BaseOp
 from memory.memory import fetch_byte, fetch_word
 from z80.funcs import big_endian_value, high_low_pair, to_signed
 

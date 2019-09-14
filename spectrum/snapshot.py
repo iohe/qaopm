@@ -8,7 +8,7 @@ def load_z80_v1_snapshot(file, processor, memory):
     def lsb_word():
         return byte() | byte() << 8
 
-    with open(file, 'r') as snapshot_file:
+    with open(file, 'rb') as snapshot_file:
         processor.main_registers['a'] = byte()
         processor.main_registers['f'] = byte()
         processor.main_registers['c'] = byte()
@@ -65,7 +65,7 @@ def load_memory_from_compressed_binary(memory, binary_file, base):
             if byte_2 == 0xed:
                 repetitions = next_byte(binary_file)
                 value = next_byte(binary_file)
-                for i in xrange(0, repetitions):
+                for i in range(0, repetitions):
                     memory[base] = value
                     base += 1
             else:
@@ -78,7 +78,7 @@ def load_memory_from_compressed_binary(memory, binary_file, base):
 
 
 def load_sna_snapshot(file, processor, memory):
-    with open(file, 'r') as snapshot_file:
+    with open(file, 'rb') as snapshot_file:
         processor.special_registers['i'] = next_byte(snapshot_file)
 
         processor.alternate_registers['h'] = next_byte(snapshot_file)
@@ -122,4 +122,5 @@ def next_word(snapshot_file):
 
 
 def next_byte(snapshot_file):
-    return ord(snapshot_file.read(1))
+    mybyte = snapshot_file.read(1)
+    return mybyte[0]

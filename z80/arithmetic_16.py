@@ -1,5 +1,5 @@
-from baseop import BaseOp
-from funcs import *
+from z80.baseop import BaseOp
+from z80.funcs import *
 
 
 class OpAddHl16Reg(BaseOp):

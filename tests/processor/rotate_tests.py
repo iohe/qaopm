@@ -1,7 +1,7 @@
 import random
 
 from z80.funcs import to_signed
-from processor_tests import TestHelper
+from tests.processor.processor_tests import TestHelper
 
 
 class TestRotate(TestHelper):

@@ -1,5 +1,5 @@
 from nose.tools import *
-from processor_tests import TestHelper
+from tests.processor.processor_tests import TestHelper
 
 
 class Test16BitArithmetic(TestHelper):

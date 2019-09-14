@@ -1,3 +1,4 @@
+import struct
 from z80.funcs import to_signed, big_endian_value
 
 
@@ -30,8 +31,8 @@ def load_memory(memory, binary_file_name, base):
 
 def load_memory_from_binary(memory, binary_file, base):
     byte = binary_file.read(1)
-    while byte != '':
-        memory[base] = ord(byte)
+    while byte:
+        memory[base] = byte[0]
         byte = binary_file.read(1)
         base = (base + 1) & 0xffff
 
@@ -39,7 +40,7 @@ def load_memory_from_binary(memory, binary_file, base):
 def save_memory(memory, binary_file_name, start, length):
     with open(binary_file_name, 'wb') as binary_file:
         for i in range(0, length):
-            binary_file.write(chr(memory[(start + length) & 0xffff]))
+            binary_file.write(struct.pack('B', memory[(start + length) & 0xffff]))
 
 
 def fetch_byte(memory, pc):

@@ -1,5 +1,5 @@
-from baseop import BaseOp
-from funcs import has_parity, to_hex_digits, to_signed
+from z80.baseop import BaseOp
+from z80.funcs import has_parity, to_hex_digits, to_signed
 from memory.memory import fetch_signed_byte
 
 

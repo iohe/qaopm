@@ -1,4 +1,4 @@
-from processor_tests import TestHelper
+from tests.processor.processor_tests import TestHelper
 
 
 class TestJumps(TestHelper):

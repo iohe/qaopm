@@ -1,5 +1,5 @@
 from nose.tools import assert_true
-from processor_tests import TestHelper
+from tests.processor.processor_tests import TestHelper
 
 
 class TestCallReturn(TestHelper):

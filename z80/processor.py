@@ -1,19 +1,19 @@
-from arithmetic_16 import *
-from baseop import *
-from call import *
-from exchange_operations import *
-from inc_operations import *
-from interrupt_operations import *
-from jump import *
-from ld_operations import *
-from rotate import *
-from stack import *
+from z80.arithmetic_16 import *
+from z80.baseop import *
+from z80.call import *
+from z80.exchange_operations import *
+from z80.inc_operations import *
+from z80.interrupt_operations import *
+from z80.jump import *
+from z80.ld_operations import *
+from z80.rotate import *
+from z80.stack import *
 from z80.arithmetic_8 import *
 from z80.block_operations import *
 from z80.dd_fd_group import OpDdFdGroup
 from z80.ed_group import OpEdGroup
 from z80.io import *
-from cb_group import OpCbGroup
+from z80.cb_group import OpCbGroup
 
 
 class Processor:

@@ -1,5 +1,5 @@
 from nose.tools import assert_equals
-from processor_tests import TestHelper
+from tests.processor.processor_tests import TestHelper
 
 
 class TestCycles(TestHelper):
