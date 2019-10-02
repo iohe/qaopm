@@ -1,4 +1,4 @@
-import struct
+import ustruct
 from z80.funcs import to_signed, big_endian_value
 
 
@@ -6,7 +6,7 @@ class Memory:
     RAMTOP = 0xffff
 
     def __init__(self):
-        self.memory = [0x0] * (self.RAMTOP + 1)
+        self.memory = bytearray(self.RAMTOP + 1)
 
     def poke(self, address, value):
         if value < 0x0 or value > 0xff:
@@ -40,7 +40,7 @@ def load_memory_from_binary(memory, binary_file, base):
 def save_memory(memory, binary_file_name, start, length):
     with open(binary_file_name, 'wb') as binary_file:
         for i in range(0, length):
-            binary_file.write(struct.pack('B', memory[(start + length) & 0xffff]))
+            binary_file.write(ustruct.pack('B', memory[(start + length) & 0xffff]))
 
 
 def fetch_byte(memory, pc):

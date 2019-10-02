@@ -8,7 +8,8 @@ class IO:
         raise NotImplementedError("Not implemented")
 
     def write(self, port, high_byte, value):
-        raise NotImplementedError("Not implemented")
+        print(port, high_byte, value)
+        #raise NotImplementedError("Not implemented")
 
 
 class OpInA(BaseOp):

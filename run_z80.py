@@ -12,7 +12,7 @@ def run():
     parser.add_argument('--verbose', '-v', help='Enable verbose output', required=False, action='store_true')
     args = parser.parse_args()
 
-    memory = Memory()
+    memory = [0x00] * 0x10000
     io = IO()
     processor = Processor(memory, io)
 
@@ -25,7 +25,7 @@ def run():
             print(executed)
         else:
             print('.'),
-        t_states += executed.t_states()
+        t_states += executed
 
         if str(executed) == 'nop':
             break
@@ -64,7 +64,7 @@ def run():
             hex_values = ['{:#04x}'.format(val) for val in values]
             chr_values = ['{}'.format(chr(val)) for val in values]
 
-            print '{0:#06x}: {1:}\t\t{2:}'.format(addr, ' '.join(hex_values), ' '.join(chr_values))
+            print('{0:#06x}: {1:}\t\t{2:}'.format(addr, ' '.join(hex_values), ' '.join(chr_values)))
             addr += 8
 
 if __name__ == '__main__':
