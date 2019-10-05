@@ -1,71 +1,49 @@
 #!/usr/bin/python
-from z80.io import IO
-from z80.processor import Processor
-from memory.memory import Memory, load_memory
-import argparse
-
+from io import IO
+from processor import Processor
+from memory import Memory, load_memory
+# import argparse
+import lcd
+from display_adapter import DisplayAdapter
+import image
+import gc
 
 def run():
-    parser = argparse.ArgumentParser(description='Run a Z80 assembly program')
-    parser.add_argument('sourcefile', metavar='sourcefile', type=str, help='Z80 binary file')
-    parser.add_argument('--dumprange', type=str, help='Range of memory to dump', required=False)
-    parser.add_argument('--verbose', '-v', help='Enable verbose output', required=False, action='store_true')
-    args = parser.parse_args()
-
-    memory = [0x00] * 0x10000
+    img = image.Image("image.jpg")
+   
+    memory = bytearray(0x10000) 
+    lcd.init(freq=15000000)
+    gc.collect()
+    display_r = DisplayAdapter(memory)
     io = IO()
+    gc.collect()
+    print(gc.mem_free())
+    print("before processor")
     processor = Processor(memory, io)
-
-    load_memory(memory, args.sourcefile, 0x0000)
+    gc.collect()
+    print("after processor")
+    print(gc.mem_free())
+    load_memory(memory, "48.rom", 0x0000)
+    print(gc.mem_free())
 
     t_states = 0
     while True:
         executed = processor.execute()
-        if args.verbose:
-            print(executed)
-        else:
-            print('.'),
+        #if args.verbose:
+        #    print(executed)
+        print(executed)
+        #else:
+        #    print('.'),
         t_states += executed
-
+        gc.mem_free()
         if str(executed) == 'nop':
             break
+        display_r.update_display(img)
+
+        lcd.display(img)
 
     print('\n')
     print('Completed program execution in {} t-states'.format(t_states))
-    print('Main register states:')
-    for reg, value in processor.main_registers.items():
-        print('{0:}: {1:#04x}\t\t').format(reg, value),
-
-    print('\n')
-    print('Alternate register states:')
-    for reg, value in processor.alternate_registers.items():
-        print('{0:}: {1:#04x}\t\t'.format(reg, value)),
-
-    print('\n')
-    print('Special register states:')
-    for reg, value in processor.special_registers.items():
-        print('{0:}: {1:#06x}\t\t'.format(reg, value)),
-
-    if args.dumprange is not None:
-        start = int(args.dumprange.split(':')[0], 16) & 0xffff
-        end = int(args.dumprange.split(':')[1], 16) & 0xffff
-
-        print('\n')
-        print('Listing of memory values from {0:#06x} to {1:#06x}'.format(start, end))
-        addr = start
-        while True:
-            if addr > end:
-                break
-
-            values = [0x00] * 8
-            for i in range(0, 8):
-                values[i] = memory[0xffff & (addr + i)]
-
-            hex_values = ['{:#04x}'.format(val) for val in values]
-            chr_values = ['{}'.format(chr(val)) for val in values]
-
-            print('{0:#06x}: {1:}\t\t{2:}'.format(addr, ' '.join(hex_values), ' '.join(chr_values)))
-            addr += 8
 
 if __name__ == '__main__':
     run()
